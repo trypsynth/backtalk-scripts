@@ -1,7 +1,7 @@
 export const manifest = {
   id: "whatsapp-messages",
   name: "WhatsApp messages",
-  version: "1.0",
+  version: "1.1",
   author: "Aaron Hewitt",
   minApiVersion: 1,
   testedApiVersion: 3,
@@ -143,11 +143,11 @@ const photoOf = (row) => {
   return /^enlarge photo$/i.test(label) || !label ? backtalk._("photo") : label.replace(/^photo/i, backtalk._("photo"));
 };
 
+// The frame around a quoted message is an empty layout, so screen readers don't see it; its texts are still there.
 const replyOf = (row) => {
-  const holder = row.find("quoted_message_holder");
-  if (!holder) return "";
-  const author = textOf(holder, "quoted_title");
-  const quoted = textOf(holder, "quoted_text");
+  const author = textOf(row, "quoted_title");
+  const quoted = textOf(row, "quoted_text");
+  if (!author && !quoted) return "";
   return [`${backtalk._("in reply to")} ${author}`.trim(), quoted].filter(Boolean).join(": ");
 };
 
