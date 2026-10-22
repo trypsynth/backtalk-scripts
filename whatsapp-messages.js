@@ -1,7 +1,7 @@
 export const manifest = {
   id: "whatsapp-messages",
   name: "WhatsApp messages",
-  version: "1.0",
+  version: "1.1",
   author: "Aaron Hewitt",
   minApiVersion: 1,
   testedApiVersion: 3,
@@ -158,9 +158,21 @@ const previewOf = (row) => {
   return `${backtalk._(row.find("play_button") ? "video link" : "link")}: ${title}`;
 };
 
+// The bubble shows up to three kinds of reaction and how many there are in all, not how many of each.
+// "reaction 👍", "reactions, 3 👍", or "reactions, 🤣, 😂, 😢, 5 in total".
 const reactionsOf = (row) => {
-  const reactions = row.findAll({ id: "reaction_bubble_emoji_text" }, 8).map((reaction) => clean(reaction.text));
-  return reactions.length ? `${backtalk._("reactions")} ${reactions.join(" ")}` : "";
+  const bubble = row.find("reactions_bubble_layout");
+  if (!bubble) return "";
+  const kinds = bubble
+    .findAll({ id: "reaction_bubble_emoji_text" }, 8)
+    .map((reaction) => clean(reaction.text))
+    .filter(Boolean);
+  if (!kinds.length) return "";
+  const count = bubble.findAll({ className: "TextView" }, 12).find((item) => /^\d+$/.test(clean(item.text)));
+  const total = count ? Number(clean(count.text)) : kinds.length;
+  if (total === 1) return `${backtalk._("reaction")} ${kinds[0]}`;
+  if (kinds.length === 1) return `${backtalk._("reactions")}, ${total} ${kinds[0]}`;
+  return [backtalk._("reactions"), ...kinds, backtalk._("{count} in total", { count: total })].join(", ");
 };
 
 const describe = (row) => {
