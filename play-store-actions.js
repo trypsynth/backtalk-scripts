@@ -3,8 +3,6 @@ export const manifest = {
   name: "Play Store row actions",
   version: "1.1",
   author: "Aryan Choudhary",
-  minApiVersion: 1,
-  testedApiVersion: 2,
   description:
     "Skips the buttons inside each row in Play Store lists, such as Update and Expand in Manage apps, " +
     "and puts them in the row's Actions menu instead.",

@@ -16,8 +16,6 @@ export const manifest = {
   name: "AI reader",
   version: "1.6",
   author: "Devin Prater",
-  minApiVersion: 2,
-  testedApiVersion: 3,
   description:
     "Says a reply when an AI app finishes writing it, including any code blocks. A port of Waypoint.",
   apps: ["com.google.android.googlequicksearchbox", "com.openai.chatgpt", "com.anthropic.claude"],

@@ -3,8 +3,6 @@ export const manifest = {
   name: "YouTube video actions",
   version: "1.4.1",
   author: "Aryan Choudhary",
-  minApiVersion: 1,
-  testedApiVersion: 2,
   description:
     "Skips the buttons inside each video, mix and playlist in YouTube lists, " +
     "and puts them in its Actions menu instead.",

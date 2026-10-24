@@ -4,6 +4,8 @@ Scripts that make apps easier to use with [Backtalk](https://github.com/trypsynt
 
 ## Install
 
+The scripts need Backtalk build 394 or newer.
+
 Add this repository as a script source in Backtalk:
 
 1. Go to **Apps** > **Scripts** > **Script sources** in Backtalk settings.

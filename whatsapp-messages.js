@@ -3,8 +3,6 @@ export const manifest = {
   name: "WhatsApp messages",
   version: "1.1",
   author: "Aaron Hewitt",
-  minApiVersion: 1,
-  testedApiVersion: 3,
   description:
     "Reads each message in a WhatsApp chat as one item: sender, content, the message it replies to, and time. " +
     "Play, playback speed and the other buttons in a message are in its Actions menu.",
