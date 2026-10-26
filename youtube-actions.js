@@ -1,7 +1,7 @@
 export const manifest = {
   id: "youtube-actions",
   name: "YouTube video actions",
-  version: "1.4.1",
+  version: "1.4.2",
   author: "Aryan Choudhary",
   description:
     "Skips the buttons inside each video, mix, playlist and game in YouTube lists, " +
