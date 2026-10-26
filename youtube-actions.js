@@ -5,7 +5,7 @@ export const manifest = {
   author: "Aryan Choudhary",
   description:
     "Skips the buttons inside each video, mix, playlist and game in YouTube lists, " +
-    "and puts them in its Actions menu instead.",
+    "and the edit button of each search suggestion, and puts them in its Actions menu instead.",
   apps: ["com.google.android.youtube"],
   permissions: ["screen", "actions", "speech", "input"],
   rules: [
@@ -25,6 +25,8 @@ export const manifest = {
     },
     // A video in History.
     { id: "contextual_menu_anchor", hide: true },
+    // The button that copies a search suggestion into the search box.
+    { id: "edit_suggestion", hide: true },
   ],
 };
 
@@ -36,6 +38,9 @@ const isVideo = (item) => item.clickable && /play (video|short|playable)|^mix - 
 const title = (label) => (label.startsWith("Action menu for") ? "Action menu" : label.replace(/[.:]+$/, ""));
 
 backtalk.onActions((item) => {
+  // A search suggestion. Its label would repeat the suggestion the user just heard.
+  const edit = item.clickable && item.find({ id: "edit_suggestion" });
+  if (edit) return [{ title: "Edit suggestion", run: () => edit.click() }];
   if ((item.id || "").endsWith("video_info_view")) {
     const menu = item.find({ id: "contextual_menu_anchor" });
     return menu ? [{ title: "Action menu", run: () => menu.click() }] : undefined;

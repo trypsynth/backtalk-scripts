@@ -21,7 +21,7 @@ To install a single script instead, share its link or its file to Backtalk.
 | [AI reader](ai-reader.js) | Says a reply when an AI app finishes writing it, including any code blocks. |
 | [Play Store row actions](play-store-actions.js) | Puts the buttons inside each row in Play Store lists, such as Update, in the row's Actions menu. |
 | [WhatsApp messages](whatsapp-messages.js) | Reads each WhatsApp message as one item, and puts its buttons in its Actions menu. |
-| [YouTube video actions](youtube-actions.js) | Puts the buttons inside each video, mix, playlist and game in its Actions menu. |
+| [YouTube video actions](youtube-actions.js) | Puts the buttons inside each video, mix, playlist and game, and the edit button of each search suggestion, in its Actions menu. |
 
 ## Writing scripts
 
