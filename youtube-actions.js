@@ -4,13 +4,15 @@ export const manifest = {
   version: "1.4.1",
   author: "Aryan Choudhary",
   description:
-    "Skips the buttons inside each video, mix and playlist in YouTube lists, " +
+    "Skips the buttons inside each video, mix, playlist and game in YouTube lists, " +
     "and puts them in its Actions menu instead.",
   apps: ["com.google.android.youtube"],
   permissions: ["screen", "actions", "speech", "input"],
   rules: [
     { match: { className: "Button", inside: { clickable: true, textContains: "play video" } }, hide: true },
     { match: { className: "Button", inside: { clickable: true, textContains: "play Short" } }, hide: true },
+    // A game in YouTube Playables.
+    { match: { className: "Button", inside: { clickable: true, textContains: "play Playable" } }, hide: true },
     { match: { className: "Button", inside: { clickable: true, textContains: "Mix - " } }, hide: true },
     // A playlist in History has no name of its own, so its menu is told by being inside something to press.
     {
@@ -28,7 +30,7 @@ export const manifest = {
 
 const MAX_BUTTONS = 8;
 
-const isVideo = (item) => item.clickable && /play (video|short)|^mix - /i.test(item.contentDescription || "");
+const isVideo = (item) => item.clickable && /play (video|short|playable)|^mix - /i.test(item.contentDescription || "");
 
 // "Action menu for <video title>" repeats the title the user just heard.
 const title = (label) => (label.startsWith("Action menu for") ? "Action menu" : label.replace(/[.:]+$/, ""));
