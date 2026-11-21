@@ -27,6 +27,19 @@ export const manifest = {
     { id: "contextual_menu_anchor", hide: true },
     // The button that copies a search suggestion into the search box.
     { id: "edit_suggestion", hide: true },
+    // In the home feed from November 2026, a video's channel, views, age and buttons sit next to it
+    // in its row of the list, not inside it. The video's own label already says the channel, views
+    // and age, so they're skipped, and the buttons go in its Actions menu.
+    { match: { className: "Button", textContains: "Go to channel", inside: { parentId: "results" } }, hide: true },
+    { match: { className: "Button", contentDescription: "Like this video", inside: { parentId: "results" } }, hide: true },
+    { match: { className: "Button", contentDescription: "Comments", inside: { parentId: "results" } }, hide: true },
+    { match: { className: "Button", contentDescription: "Save to playlist", inside: { parentId: "results" } }, hide: true },
+    { match: { className: "Button", textContains: "Action menu for", inside: { parentId: "results" } }, hide: true },
+    // ".View" is android.view.View only, not TextView or ImageView.
+    { match: { className: ".View", clickable: false, textContains: "@", inside: { parentId: "results" } }, hide: true },
+    { match: { className: ".View", clickable: false, textContains: " views", inside: { parentId: "results" } }, hide: true },
+    { match: { className: ".View", clickable: false, textContains: " watching", inside: { parentId: "results" } }, hide: true },
+    { match: { className: ".View", clickable: false, textContains: " ago", inside: { parentId: "results" } }, hide: true },
   ],
 };
 
@@ -46,7 +59,11 @@ backtalk.onActions((item) => {
     return menu ? [{ title: "Action menu", run: () => menu.click() }] : undefined;
   }
   if (!item.clickable || !(isVideo(item) || item.className.endsWith("Button"))) return;
-  return item
+  // In the newer home feed, the buttons are next to the video in its row rather than inside it.
+  const row = item.parent;
+  const scope =
+    isVideo(item) && item.childCount === 0 && row && (row.parent?.id || "").endsWith("results") ? row : item;
+  return scope
     .findAll({ className: "Button" }, MAX_BUTTONS)
     .filter((button) => button.contentDescription && !button.equals(item) && !isVideo(button))
     .map((button) => ({ title: title(button.contentDescription), run: () => button.click() }));
