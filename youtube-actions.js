@@ -40,6 +40,9 @@ export const manifest = {
     { match: { className: ".View", clickable: false, textContains: " views", inside: { parentId: "results" } }, hide: true },
     { match: { className: ".View", clickable: false, textContains: " watching", inside: { parentId: "results" } }, hide: true },
     { match: { className: ".View", clickable: false, textContains: " ago", inside: { parentId: "results" } }, hide: true },
+    // An empty spacer between the videos under the one playing. It has nothing to match it by but its
+    // class, which is YouTube's minified name, so this may need changing after a YouTube update.
+    { match: { className: "yek", clickable: false, parentId: "watch_list" }, hide: true },
   ],
 };
 
